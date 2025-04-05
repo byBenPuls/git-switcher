@@ -37,7 +37,7 @@ def get_git_config() -> Iterator:
 
 
 def set_account_data():
-    current_name, current_email = "name not found", "mail not found"
+    current_name, current_email = None, None
 
     for key, value in get_git_config():
         match key, value:
@@ -47,6 +47,10 @@ def set_account_data():
                 current_email = value
             case _:
                 pass
+
+    if not current_name:
+        print("Git account name was not found")
+        return
 
     print(f"In current repo your credentials: {current_name} <{current_email}>")
 
