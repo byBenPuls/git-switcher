@@ -51,15 +51,17 @@ def set_account_data():
     print(f"In current repo your credentials: {current_name} <{current_email}>")
 
     password = get_credentials(current_name) 
-    if password:
-        try:
-            set_credentials_to_git(current_name, password)
-        except:
-            print("Cannot write credentials in ~/.git-credentials")
-        else:
-            print(f"New password for {current_name} successfully activated!")
-    else:
+
+    if not password:
         print("Password was not found in ~/.git-switch")
+        return
+
+    try:
+        set_credentials_to_git(current_name, password)
+    except:
+        print("Cannot write credentials in ~/.git-credentials")
+    else:
+        print(f"New password for {current_name} successfully activated!")
 
 
 if __name__ == "__main__":
